@@ -81,3 +81,24 @@ class SubjectViewController: UIViewController {
     */
 
 }
+
+
+class AnswerDataSource : NSObject, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return SubjectViewController.passedValues.count;
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell:UITableViewCell? = UITableViewCell(style: UITableViewCellStyle.subtitle,
+                                                    reuseIdentifier: "tableViewCell")
+        if (cell == nil)
+        {
+            cell = UITableViewCell(style: UITableViewCellStyle.subtitle,
+                                   reuseIdentifier: "tableViewCell")
+        }
+        cell?.textLabel?.text = dataDownloaded[indexPath.row].name;
+        cell?.detailTextLabel?.text = dataDownloaded[indexPath.row].description;
+        let image : UIImage = UIImage(named: dataDownloaded[indexPath.row].image)!;
+        cell?.imageView?.image = image;
+        return cell!;
+    }
+}
