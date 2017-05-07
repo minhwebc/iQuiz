@@ -33,6 +33,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kJv-H6-Msd" kind="show" identifier="segue" id="s7H-dl-cdf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -64,7 +67,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="-654" y="-215"/>
+        </scene>
+        <!--Subject View Controller-->
+        <scene sceneID="43A-e2-37L">
+            <objects>
+                <viewController storyboardIdentifier="YourViewController" id="kJv-H6-Msd" customClass="SubjectViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NHo-Hz-qG8"/>
+                        <viewControllerLayoutGuide type="bottom" id="jfp-99-Qca"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BMO-h5-6NX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wPc-ik-TXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="380" y="-214"/>
         </scene>
     </scenes>
 </document>

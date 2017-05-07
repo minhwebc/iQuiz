@@ -22,7 +22,27 @@ class Category {
 }
 
 class ViewController: UIViewController {
+    
+    
+    @IBOutlet weak var table: UITableView!
+    
+    var dds : TableSource = TableSource();
+    var ddd : TableDelegate = TableDelegate();
+    var listData = [[String : AnyObject]]();
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        table.delegate = ddd;
+        table.dataSource = dds;
+        downloadJson(url : "https://tednewardsandbox.site44.com/questions.json");
+    }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     @IBAction func settingClicked(_ sender: Any) {
         let alert = UIAlertController(title: title,
                                       message: "Settings go here",
@@ -34,22 +54,55 @@ class ViewController: UIViewController {
         alert.addAction(cancelAction);
         self.present(alert, animated: true);
     }
-    @IBOutlet weak var table: UITableView!
-    var dds : TableSource = TableSource();
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        table.dataSource = dds;
+    
+    
+    func downloadJson(url : String){
+        DispatchQueue.global().async {
+            let urlRequest = URL(string : url)
+            URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
+                (data, response, error) in
+                if(error != nil){
+                    NSLog("something went wrong");
+                
+                }else{
+                    do{
+                        self.listData  = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                            as! [[String : AnyObject]]
+                        OperationQueue.main.addOperation {
+                            self.table.reloadData();
+                            print(self.listData);
+                        }
+                    }catch let error as NSError{
+                        print(error);
+                    }
+                }
+            }).resume()
+            
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You selected cell #\(indexPath.row)!")
+        performSegue(withIdentifier: "segues", sender: self);
+        
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segue" {
+            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let destination = storyboard.instantiateViewController(withIdentifier: "YourViewController") as! SubjectViewController
+            navigationController?.pushViewController(destination, animated: true)
+        }
+    }
 
 }
+
+class TableDelegate : NSObject, UITableViewDelegate{
+    func tableView(_: UITableView, didSelectRowAt: IndexPath){
+        print("selected");
+        self.performSegue(withIdentifier: "segues", sender: ViewController.self);
+    }
+}
+
 var data : [Category] = [Category("Mathematic", "It's fun", "image"), Category("Marvel Super Heroes", "It's exciting", "image"), Category("Science", "It's magical", "image")];
 
 class TableSource : NSObject, UITableViewDataSource {
@@ -66,8 +119,11 @@ class TableSource : NSObject, UITableViewDataSource {
         }
         cell?.textLabel?.text = data[indexPath.row].name;
         cell?.detailTextLabel?.text = data[indexPath.row].description;
-        var image : UIImage = UIImage(named: data[indexPath.row].image)!;
+        let image : UIImage = UIImage(named: data[indexPath.row].image)!;
         cell?.imageView?.image = image;
         return cell!;
     }
+    
+    
 }
+
