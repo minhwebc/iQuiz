@@ -2,20 +2,68 @@
 //  SubjectViewController.swift
 //  iQuiz
 //
-//  Created by Quan Nguyen on 5/6/17.
+//  Created by iGuest on 5/6/17.
 //  Copyright © 2017 Quan Nguyen. All rights reserved.
 //
 
 import UIKit
 
 class SubjectViewController: UIViewController {
-
+    
+    private var index : Int = 0;
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+    @IBOutlet weak var question: UILabel!
+    @IBOutlet weak var answer4: UILabel!
+    @IBOutlet weak var answer3: UILabel!
+    @IBOutlet weak var answer2: UILabel!
+    @IBOutlet weak var answer1: UILabel!
+    @IBOutlet weak var answer: UILabel!
+    public var passedValues : Category!;
+    @IBOutlet weak var submitButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
+        question.text = passedValues.questions[index].text;
+        answer1.text = passedValues.questions[index].answers[0];
+        answer2.text = passedValues.questions[index].answers[1];
+        answer3.text = passedValues.questions[index].answers[2];
+        answer4.text = passedValues.questions[index].answers[3];
+        nextButton.isEnabled = false;
     }
-
+    
+    @IBAction func clickSubmit(_ sender: Any) {
+        question.text = "";
+        answer1.text = "";
+        answer2.text = "";
+        answer3.text = "";
+        answer4.text = "";
+        answer.text = passedValues.questions[self.index].answers[Int(passedValues.questions[self.index].answer)];
+        nextButton.isEnabled = true;
+        submitButton.isEnabled = false
+        ;
+    }
+    @IBAction func clickNext(_ sender: Any) {
+        
+        index = index + 1;
+        if(index > passedValues.questions.count - 1){
+            answer.text = "end of questions";
+            nextButton.isEnabled = false;
+            submitButton.isEnabled = false;
+        }else{
+            question.text = passedValues.questions[index].text;
+            answer1.text = passedValues.questions[index].answers[0];
+            answer2.text = passedValues.questions[index].answers[1];
+            answer3.text = passedValues.questions[index].answers[2];
+            answer4.text = passedValues.questions[index].answers[3];
+            answer.text = "";
+            submitButton.isEnabled = true;
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

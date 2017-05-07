@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9DCD17351EBEBCE200515A17 /* SubjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD17341EBEBCE200515A17 /* SubjectViewController.swift */; };
 		A8C41E611EB2DBAB008B76A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C41E601EB2DBAB008B76A6 /* AppDelegate.swift */; };
 		A8C41E631EB2DBAB008B76A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C41E621EB2DBAB008B76A6 /* ViewController.swift */; };
 		A8C41E661EB2DBAB008B76A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C41E641EB2DBAB008B76A6 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9DCD17341EBEBCE200515A17 /* SubjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectViewController.swift; sourceTree = "<group>"; };
 		A8C41E5D1EB2DBAB008B76A6 /* iQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C41E601EB2DBAB008B76A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8C41E621EB2DBAB008B76A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				A8C41E601EB2DBAB008B76A6 /* AppDelegate.swift */,
 				A8C41E621EB2DBAB008B76A6 /* ViewController.swift */,
 				A8C41E641EB2DBAB008B76A6 /* Main.storyboard */,
+				9DCD17341EBEBCE200515A17 /* SubjectViewController.swift */,
 				A8C41E671EB2DBAB008B76A6 /* Assets.xcassets */,
 				A8C41E8E1EB2E561008B76A6 /* image.png */,
 				A8C41E691EB2DBAB008B76A6 /* LaunchScreen.storyboard */,
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8C41E631EB2DBAB008B76A6 /* ViewController.swift in Sources */,
+				9DCD17351EBEBCE200515A17 /* SubjectViewController.swift in Sources */,
 				A8C41E611EB2DBAB008B76A6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,6 +515,7 @@
 				A8C41E871EB2DBAB008B76A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A8C41E881EB2DBAB008B76A6 /* Build configuration list for PBXNativeTarget "iQuizTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +524,7 @@
 				A8C41E8A1EB2DBAB008B76A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A8C41E8B1EB2DBAB008B76A6 /* Build configuration list for PBXNativeTarget "iQuizUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +533,7 @@
 				A8C41E8D1EB2DBAB008B76A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
