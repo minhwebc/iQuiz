@@ -9,16 +9,16 @@
 import UIKit
 var dataDownloaded : [Category] = [Category]();
 
-class Category {
+class Category : NSObject{
     
     public var name : String
-    public var description : String
+    public var desc: String
     public var image : String
     public var questions : [Question];
 
     public init(_ n : String, _ d : String, _ image : String, _ questions : [Question]){
                 self.name = n;
-                self.description = d;
+                self.desc = d;
                 self.image = image;
                 self.questions = questions;
     }
@@ -52,27 +52,43 @@ class ViewController: UIViewController, UITableViewDelegate{
         table.delegate = self;
         table.dataSource = dds;
         downloadJson(url : "https://tednewardsandbox.site44.com/questions.json");
+
+        for element in UserDefaults.standard.dictionaryRepresentation() {
+            if(element.key == "Science!" || element.key == "Mathematics" || element.key == "Marvel Super Heroes"){
+                print(element.value);
+            }
+            //Do what you need to do here
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func settingClicked(_ sender: Any) {
-        let alert = UIAlertController(title: title,
-                                      message: "Settings go here",
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        
-        let cancelAction = UIAlertAction(title: "OK",
-                                         style: .cancel, handler: nil)
-        
-        alert.addAction(cancelAction);
-        self.present(alert, animated: true);
+    @IBOutlet var newWordField: UITextField?
+    func wordEntered(alert: UIAlertAction!){
+        // store the new word
+        downloadJson(url : (self.newWordField?.text!)!);
+    }
+    func addTextField(textField: UITextField!){
+        // add the text field and make the result global
+        textField.placeholder = "Link goes here"
+        self.newWordField = textField
     }
     
     
+    @IBAction func settingClicked(_ sender: Any) {
+        // display an alert
+        let newWordPrompt = UIAlertController(title: "Enter", message: "Enter a link to download the quiz from", preferredStyle: UIAlertControllerStyle.alert)
+        newWordPrompt.addTextField(configurationHandler: addTextField)
+        newWordPrompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+        newWordPrompt.addAction(UIAlertAction(title: "Check out", style: UIAlertActionStyle.default, handler: wordEntered))
+        present(newWordPrompt, animated: true, completion: nil)
+    }
+    
     func downloadJson(url : String){
+        let defaults = UserDefaults.standard;
         DispatchQueue.global().async {
             let urlRequest = URL(string : url)
             URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
@@ -90,6 +106,7 @@ class ViewController: UIViewController, UITableViewDelegate{
                             if let name = subject["title"] as? String {
                                 title = name;
                             }
+                            
                             var description : String = "";
                             if let desc = subject["desc"] as? String {
                                 description = desc;
@@ -115,11 +132,14 @@ class ViewController: UIViewController, UITableViewDelegate{
                                     questions.append(Question(answer, answersRecorded,text));
                                 }
                             }
+                            defaults.set(subject, forKey: title);
                             dataDownloaded.append(Category(title, description, "image", questions));
                         }
                         OperationQueue.main.addOperation {
                             self.table.reloadData();
                         }
+                        
+
                     }catch let error as NSError{
                         print(error);
                     }
@@ -162,7 +182,7 @@ class TableSource : NSObject, UITableViewDataSource {
                                    reuseIdentifier: "tableViewCell")
         }
         cell?.textLabel?.text = dataDownloaded[indexPath.row].name;
-        cell?.detailTextLabel?.text = dataDownloaded[indexPath.row].description;
+        cell?.detailTextLabel?.text = dataDownloaded[indexPath.row].desc;
         let image : UIImage = UIImage(named: dataDownloaded[indexPath.row].image)!;
         cell?.imageView?.image = image;
         return cell!;
