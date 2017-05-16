@@ -30,10 +30,6 @@ class SubjectViewController: UIViewController {
     @IBOutlet weak var answer4Button: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        
         question.text = passedValues.questions[index].text;
         answer1.text = passedValues.questions[index].answers[3];
         answer2.text = passedValues.questions[index].answers[2];
@@ -45,7 +41,9 @@ class SubjectViewController: UIViewController {
         answer.text = "";
         
     }
-    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     @IBAction func clickFirstAnswer(_ sender: Any) {
         answerIndex = 0;
         answerField.text = "Your answer is : \(passedValues.questions[index].answers[0])";
@@ -70,6 +68,7 @@ class SubjectViewController: UIViewController {
         answer4.text = "";
         answerField.text = "";
         let answerInt : Int = Int(passedValues.questions[index].answer);
+        print(answerInt);
         if(answerIndex != answerInt){
             message.text = "Wrong answer";
         }else{
@@ -112,18 +111,6 @@ class SubjectViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 

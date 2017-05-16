@@ -67,6 +67,9 @@ class ViewController: UIViewController, UITableViewDelegate{
     var dds : TableSource = TableSource();
     var listData = [[String : AnyObject]]();
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +85,7 @@ class ViewController: UIViewController, UITableViewDelegate{
             }
         }else{
             if(dataDownloaded.count == 0){
+                
                 for element in UserDefaults.standard.dictionaryRepresentation() {
                     if(element.key == "Science!" || element.key == "Mathematics" || element.key == "Marvel Super Heroes"){
                         var subject = element.value as! [String : AnyObject]
@@ -113,17 +117,10 @@ class ViewController: UIViewController, UITableViewDelegate{
                                     }
                                 }
                                 questions.append(Question(answer, answersRecorded,text));
-                                var hasSubject = false;
-                                for data in dataDownloaded{
-                                    if(data.name == title){
-                                        hasSubject = true;
-                                    }
-                                }
-                                if(!hasSubject){
-                                    dataDownloaded.append(Category(title, description, "image", questions));
-                                }
+                            
                             }
                         }
+                        dataDownloaded.append(Category(title, description, "image", questions));
                     }
                 }
             }
@@ -136,11 +133,9 @@ class ViewController: UIViewController, UITableViewDelegate{
         // Dispose of any resources that can be recreated.
     }
     func wordEntered(alert: UIAlertAction!){
-        // store the new word
         downloadJson(url : (self.newWordField?.text!)!);
     }
     func addTextField(textField: UITextField!){
-        // add the text field and make the result global
         textField.placeholder = "Link goes here"
         self.newWordField = textField
     }
@@ -187,8 +182,8 @@ class ViewController: UIViewController, UITableViewDelegate{
                                         text = name;
                                     }
                                     var answer : Int64 = 0;
-                                    if let desc = question["answer"] as? Int64 {
-                                        answer = desc;
+                                    if let desc = question["answer"] as? String {
+                                        answer = Int64(desc)!;
                                     }
                                     var answersRecorded : [String] = [String]();
                                     if let listAnswer = question["answers"] as? [String] {
@@ -196,7 +191,7 @@ class ViewController: UIViewController, UITableViewDelegate{
                                             answersRecorded.append(answer);
                                         }
                                     }
-                                    questions.append(Question(answer, answersRecorded,text));
+                                    questions.append(Question(answer-1, answersRecorded,text));
                                 }
                             }
                             defaults.set(subject, forKey: title);
@@ -227,7 +222,7 @@ class ViewController: UIViewController, UITableViewDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segue" {
             let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            var viewController = segue.destination as! SubjectViewController
+            let viewController = segue.destination as! SubjectViewController
             let destination = storyboard.instantiateViewController(withIdentifier: "YourViewController") as! SubjectViewController
             viewController.passedValues = self.valueToPass;
             navigationController?.pushViewController(destination, animated: true)

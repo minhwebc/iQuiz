@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9DCD17351EBEBCE200515A17 /* SubjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD17341EBEBCE200515A17 /* SubjectViewController.swift */; };
+		9DEB02BA1ECBBB64007EF16D /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DEB02B91ECBBB64007EF16D /* image.png */; };
 		A8C41E611EB2DBAB008B76A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C41E601EB2DBAB008B76A6 /* AppDelegate.swift */; };
 		A8C41E631EB2DBAB008B76A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C41E621EB2DBAB008B76A6 /* ViewController.swift */; };
 		A8C41E661EB2DBAB008B76A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C41E641EB2DBAB008B76A6 /* Main.storyboard */; };
@@ -15,7 +16,6 @@
 		A8C41E6B1EB2DBAB008B76A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C41E691EB2DBAB008B76A6 /* LaunchScreen.storyboard */; };
 		A8C41E761EB2DBAB008B76A6 /* iQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C41E751EB2DBAB008B76A6 /* iQuizTests.swift */; };
 		A8C41E811EB2DBAB008B76A6 /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C41E801EB2DBAB008B76A6 /* iQuizUITests.swift */; };
-		A8C41E8F1EB2E561008B76A6 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = A8C41E8E1EB2E561008B76A6 /* image.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		9DCD17341EBEBCE200515A17 /* SubjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectViewController.swift; sourceTree = "<group>"; };
+		9DEB02B91ECBBB64007EF16D /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		A8C41E5D1EB2DBAB008B76A6 /* iQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C41E601EB2DBAB008B76A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8C41E621EB2DBAB008B76A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		A8C41E7C1EB2DBAB008B76A6 /* iQuizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iQuizUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C41E801EB2DBAB008B76A6 /* iQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQuizUITests.swift; sourceTree = "<group>"; };
 		A8C41E821EB2DBAB008B76A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A8C41E8E1EB2E561008B76A6 /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +81,7 @@
 		A8C41E541EB2DBAB008B76A6 = {
 			isa = PBXGroup;
 			children = (
+				9DEB02B91ECBBB64007EF16D /* image.png */,
 				A8C41E5F1EB2DBAB008B76A6 /* iQuiz */,
 				A8C41E741EB2DBAB008B76A6 /* iQuizTests */,
 				A8C41E7F1EB2DBAB008B76A6 /* iQuizUITests */,
@@ -106,7 +107,6 @@
 				A8C41E641EB2DBAB008B76A6 /* Main.storyboard */,
 				9DCD17341EBEBCE200515A17 /* SubjectViewController.swift */,
 				A8C41E671EB2DBAB008B76A6 /* Assets.xcassets */,
-				A8C41E8E1EB2E561008B76A6 /* image.png */,
 				A8C41E691EB2DBAB008B76A6 /* LaunchScreen.storyboard */,
 				A8C41E6C1EB2DBAB008B76A6 /* Info.plist */,
 			);
@@ -241,7 +241,7 @@
 				A8C41E6B1EB2DBAB008B76A6 /* LaunchScreen.storyboard in Resources */,
 				A8C41E681EB2DBAB008B76A6 /* Assets.xcassets in Resources */,
 				A8C41E661EB2DBAB008B76A6 /* Main.storyboard in Resources */,
-				A8C41E8F1EB2E561008B76A6 /* image.png in Resources */,
+				9DEB02BA1ECBBB64007EF16D /* image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
