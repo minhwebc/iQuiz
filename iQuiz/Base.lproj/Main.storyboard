@@ -67,7 +67,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1079" y="-436"/>
+            <point key="canvasLocation" x="-654" y="-384"/>
         </scene>
         <!--Subject View Controller-->
         <scene sceneID="43A-e2-37L">
@@ -191,12 +191,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w0x-2E-SYu">
-                                <rect key="frame" x="23" y="215.5" width="42" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H7y-Sz-ag4">
                                 <rect key="frame" x="160" y="321" width="42" height="41"/>
                                 <subviews>
@@ -219,12 +213,19 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w0x-2E-SYu">
+                                <rect key="frame" x="23" y="215" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YMQ-b3-FFK" firstAttribute="leading" secondItem="BMO-h5-6NX" secondAttribute="leadingMargin" constant="10" id="1gh-Fa-jt2"/>
                             <constraint firstItem="w0x-2E-SYu" firstAttribute="leading" secondItem="BMO-h5-6NX" secondAttribute="leadingMargin" constant="7" id="3Jt-EC-38R"/>
                             <constraint firstItem="H7y-Sz-ag4" firstAttribute="centerX" secondItem="BMO-h5-6NX" secondAttribute="centerX" id="Cgo-3E-fq1"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="w0x-2E-SYu" secondAttribute="trailing" constant="20" id="Jrz-UD-tne"/>
                             <constraint firstAttribute="trailing" secondItem="CY9-GB-MqO" secondAttribute="trailing" id="KWP-oP-04w"/>
                             <constraint firstItem="CY9-GB-MqO" firstAttribute="top" secondItem="BMO-h5-6NX" secondAttribute="top" id="MAu-Qw-gbL"/>
                             <constraint firstItem="w0x-2E-SYu" firstAttribute="top" secondItem="YMQ-b3-FFK" secondAttribute="bottom" constant="8" id="NGo-nR-7ME"/>
@@ -255,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wPc-ik-TXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="196" y="-437"/>
+            <point key="canvasLocation" x="433" y="-457"/>
         </scene>
     </scenes>
 </document>

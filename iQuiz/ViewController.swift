@@ -61,6 +61,7 @@ func isInternetAvailable() -> Bool
 
 class ViewController: UIViewController, UITableViewDelegate{
     
+    var url : String = "https://tednewardsandbox.site44.com/questions.json";
     @IBOutlet var newWordField: UITextField?
     @IBOutlet weak var table: UITableView!
     var valueToPass:Category!
@@ -78,11 +79,7 @@ class ViewController: UIViewController, UITableViewDelegate{
         table.delegate = self;
         table.dataSource = dds;
         if isInternetAvailable() {
-            if(newWordField?.text == nil){
-                downloadJson(url : "https://tednewardsandbox.site44.com/questions.json");
-            }else{
-                downloadJson(url: (newWordField?.text)!);
-            }
+            downloadJson(url: self.url);
         }else{
             if(dataDownloaded.count == 0){
                 
@@ -117,7 +114,6 @@ class ViewController: UIViewController, UITableViewDelegate{
                                     }
                                 }
                                 questions.append(Question(answer, answersRecorded,text));
-                            
                             }
                         }
                         dataDownloaded.append(Category(title, description, "image", questions));
@@ -133,7 +129,8 @@ class ViewController: UIViewController, UITableViewDelegate{
         // Dispose of any resources that can be recreated.
     }
     func wordEntered(alert: UIAlertAction!){
-        downloadJson(url : (self.newWordField?.text!)!);
+        self.url = (self.newWordField?.text!)!
+        downloadJson(url : self.url);
     }
     func addTextField(textField: UITextField!){
         textField.placeholder = "Link goes here"
