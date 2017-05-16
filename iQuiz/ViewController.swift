@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SystemConfiguration
+
 var dataDownloaded : [Category] = [Category]();
 
 class Category : NSObject{
@@ -15,12 +17,12 @@ class Category : NSObject{
     public var desc: String
     public var image : String
     public var questions : [Question];
-
+    
     public init(_ n : String, _ d : String, _ image : String, _ questions : [Question]){
-                self.name = n;
-                self.desc = d;
-                self.image = image;
-                self.questions = questions;
+        self.name = n;
+        self.desc = d;
+        self.image = image;
+        self.questions = questions;
     }
 }
 
@@ -36,9 +38,30 @@ class Question{
     }
 }
 
+func isInternetAvailable() -> Bool
+{
+    var zeroAddress = sockaddr_in()
+    zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+    zeroAddress.sin_family = sa_family_t(AF_INET)
+    
+    let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+        $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+            SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+        }
+    }
+    
+    var flags = SCNetworkReachabilityFlags()
+    if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+        return false
+    }
+    let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+    let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+    return (isReachable && !needsConnection)
+}
+
 class ViewController: UIViewController, UITableViewDelegate{
     
-    
+    @IBOutlet var newWordField: UITextField?
     @IBOutlet weak var table: UITableView!
     var valueToPass:Category!
     var dds : TableSource = TableSource();
@@ -48,25 +71,70 @@ class ViewController: UIViewController, UITableViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        
         table.delegate = self;
         table.dataSource = dds;
-        downloadJson(url : "https://tednewardsandbox.site44.com/questions.json");
-
-        for element in UserDefaults.standard.dictionaryRepresentation() {
-            if(element.key == "Science!" || element.key == "Mathematics" || element.key == "Marvel Super Heroes"){
-                print(element.value);
+        if isInternetAvailable() {
+            if(newWordField?.text == nil){
+                downloadJson(url : "https://tednewardsandbox.site44.com/questions.json");
+            }else{
+                downloadJson(url: (newWordField?.text)!);
             }
-            //Do what you need to do here
+        }else{
+            if(dataDownloaded.count == 0){
+                for element in UserDefaults.standard.dictionaryRepresentation() {
+                    if(element.key == "Science!" || element.key == "Mathematics" || element.key == "Marvel Super Heroes"){
+                        var subject = element.value as! [String : AnyObject]
+                        var title : String = "";
+                        if let name = subject["title"] as? String {
+                            title = name;
+                        }
+                        
+                        var description : String = "";
+                        if let desc = subject["desc"] as? String {
+                            description = desc;
+                        }
+                        var questions = [Question]();
+                        if let listQuestion = subject["questions"] as? [[String : AnyObject]] {
+                            for question in listQuestion{
+                                
+                                var text : String = "";
+                                if let name = question["text"] as? String {
+                                    text = name;
+                                }
+                                var answer : Int64 = 0;
+                                if let desc = question["answer"] as? Int64 {
+                                    answer = desc;
+                                }
+                                var answersRecorded : [String] = [String]();
+                                if let listAnswer = question["answers"] as? [String] {
+                                    for answer in listAnswer{
+                                        answersRecorded.append(answer);
+                                    }
+                                }
+                                questions.append(Question(answer, answersRecorded,text));
+                                var hasSubject = false;
+                                for data in dataDownloaded{
+                                    if(data.name == title){
+                                        hasSubject = true;
+                                    }
+                                }
+                                if(!hasSubject){
+                                    dataDownloaded.append(Category(title, description, "image", questions));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBOutlet var newWordField: UITextField?
     func wordEntered(alert: UIAlertAction!){
         // store the new word
         downloadJson(url : (self.newWordField?.text!)!);
@@ -95,7 +163,6 @@ class ViewController: UIViewController, UITableViewDelegate{
                 (data, response, error) in
                 if(error != nil){
                     NSLog("something went wrong");
-                
                 }else{
                     do{
                         dataDownloaded.removeAll();
@@ -139,7 +206,7 @@ class ViewController: UIViewController, UITableViewDelegate{
                             self.table.reloadData();
                         }
                         
-
+                        
                     }catch let error as NSError{
                         print(error);
                     }
@@ -175,7 +242,7 @@ class TableSource : NSObject, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:UITableViewCell? = UITableViewCell(style: UITableViewCellStyle.subtitle,
-                                                   reuseIdentifier: "tableViewCell")
+                                                    reuseIdentifier: "tableViewCell")
         if (cell == nil)
         {
             cell = UITableViewCell(style: UITableViewCellStyle.subtitle,
